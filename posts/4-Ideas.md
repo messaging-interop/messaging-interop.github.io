@@ -64,4 +64,4 @@ Given that relationship managers are responsible for safeguarding a user's crypt
 
 
 [^1]: SMS Gateway https://en.wikipedia.org/wiki/SMS_gateway
-[^2]: APNS (iOS) and Android both have a payload limit of 4KB:https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html  https://firebase.google.com/docs/cloud-messaging/concept-options
+[^2]: APNS (iOS) and Android both have a payload limit of 4KB: https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html  https://firebase.google.com/docs/cloud-messaging/concept-options
