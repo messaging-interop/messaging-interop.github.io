@@ -993,7 +993,7 @@ This may be a public directory or an access controlled one.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Today, secure messaging at scale (Signal, WhatsApp, and iMessage) sits in centralized ecosystems, each of them layering different crytographic identities atop the identity of a person&#39;s phone number.&lt;/p&gt;
 &lt;p&gt;In practice, the fracturing of people’s social relationships among those ecosystems results in the frustrating experience of using multiple messaging apps simultaneously - and worse, fracturing conversations with the same person across multiple apps. There’s been a renewed interest in interoperability, spurred by the EU’s requirement for such in the DMA. &lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://messaging-interop.github.io/posts/0-Overview/#fn1&quot; id=&quot;fnref1&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt; &lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://messaging-interop.github.io/posts/0-Overview/#fn2&quot; id=&quot;fnref2&quot;&gt;[2]&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
-&lt;p&gt;Rather than simply guling these systems together, I propose a vision of a modern messaging system that provides:&lt;/p&gt;
+&lt;p&gt;Rather than simply gluing these systems together, I propose a vision of a modern messaging system that provides:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Unified identity across modes of conversation
 &lt;ul&gt;
