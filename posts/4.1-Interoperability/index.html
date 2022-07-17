@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4.1. Interoperability</title>
+    <meta name="description" content="Ideas for portable, secure, private messaging">
+
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/prism-base16-monokai.dark.css">
+    <link rel="stylesheet" href="/css/prism-diff.css">
+    <link rel="stylesheet" href="https://unpkg.com/katex@latest/dist/katex.min.css">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Modern Interoperable Messaging">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Modern Interoperable Messaging">
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/">Modern Interoperable Messaging</a></h1>
+      <ul class="nav">
+        <li class="nav-item"><a href="/">Home</a></li>
+        <li class="nav-item"><a href="/posts/">Archive</a></li>
+        <li class="nav-item"><a href="/about/">About Me</a></li>
+      </ul>
+    </header>
+
+    <main class="tmpl-post">
+
+      <div class="wrapper">
+  <div class="grid">
+    <div class="grid-main">
+
+      <h1>4.1. Interoperability</h1>
+
+      <p>A key principle of this architecture is that users do not have to agree on a choice of software or services to communicate securely and privately. There are many ideas for hiding message metadata, but implementing novel strategies is difficult if one has to rely on both parties cooperating.</p>
+<p>This architecture is logically separated so that each piece of the architecture can implement novel approaches. These points of separation require interoperability in the following ways</p>
+<h3 id="relationship-manager-to-relationship-manager" tabindex="-1">Relationship Manager to Relationship Manager <a class="direct-link" href="#relationship-manager-to-relationship-manager" aria-hidden="true">#</a></h3>
+<ul>
+<li>Relationship Managers must agree on a cipher text and plaintext message format and cipher suites for encrypting and decrypting cipher texts.</li>
+<li>They must interoperate on mechanisms for exchanging and verifying public keys directly</li>
+<li>They must interoperate on commands for message exchange and proton state:
+<ul>
+<li>Message received</li>
+<li>Message read (if recipients choose to send it)</li>
+<li>Updates to associated data for the proton:
+<ul>
+<li>e.g. preferred name, receiving services, addresses</li>
+<li>including requests to update addresses about to expire</li>
+</ul>
+</li>
+<li>Group operations</li>
+<li>Introduction to backups</li>
+<li>Merge requests</li>
+<li>Relationship terminated
+<ul>
+<li>(Clients can also silently ignore relationships, or stop sending message receipt ack's, but users may wish to explicitly message this)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="sending-service-to-receiving-service" tabindex="-1">Sending Service to Receiving Service <a class="direct-link" href="#sending-service-to-receiving-service" aria-hidden="true">#</a></h3>
+<p>Receiving Services must be able to accept messages up to the agreed upon protocol size for an arbitrary address from Sending Service.</p>
+<h3 id="sending-and-receiving-services" tabindex="-1">Sending and Receiving Services <a class="direct-link" href="#sending-and-receiving-services" aria-hidden="true">#</a></h3>
+<p>Sending and receiving services may expose just server API for RM clients. However, services may find it helpful to use client code to execute novel strategies to hide message metadata from themselves, for example with the use of private access tokens.</p>
+<p>We can enable users to use a single relationship manager with different (possibly concurrently) sending and receiving services and simplify the interface as follows:</p>
+<h3 id="sending-services" tabindex="-1">Sending Services <a class="direct-link" href="#sending-services" aria-hidden="true">#</a></h3>
+<ul>
+<li>Sending services should provide the Relationship Manager with an API for the RM to send a message for a particular address</li>
+<li>Sending services should also provide the Relationship Manager with an API to upload a ciphertext to cloud storage, and return a URI where it can be retrieved.
+<ul>
+<li>Sending Services should provide the Relationship Manager with an API to learn about the availability (e.g. if offline) and capacity for message sending and attachment upload</li>
+</ul>
+</li>
+</ul>
+<h3 id="receiving-services" tabindex="-1">Receiving Services <a class="direct-link" href="#receiving-services" aria-hidden="true">#</a></h3>
+<p>Receiving services have two key functions - address generation, and message receipt.
+The receiving service should expose API to Relationship Managers for address management:</p>
+<ul>
+<li>generate a long-term address
+<ul>
+<li>optionally, revoke a long-term address</li>
+</ul>
+</li>
+<li>generate an ephemeral, derived address from a long-term address</li>
+</ul>
+<p>Receiving services should offer a mechanism for any party to, given an address A' for that service, derive an ephemeral address that is only linkable to A by the receiving service. Section <a href="/posts/4.4-Transit-Privacy">4.4 Transit Privacy</a> gives a sketch of how to do so with public key cryptography.</p>
+<p>The receiving service should also expose API to Relationship Managers for message delivery:</p>
+<ul>
+<li>
+<p>deliver a message to the Relationship Manager for a given address</p>
+</li>
+<li>
+<p>Allow the Relationship Manager to specify latency for specific long-term addresses (e.g. to manage the pull/push tradeoff centrally within the relationship manager)</p>
+</li>
+<li>
+<p>The RM provides an API for the SS to tell it of changes to the sending configuration (specifically, permitted payload sizes), and available sending options (e.g. a privacy vs latency trade off)</p>
+</li>
+</ul>
+
+      <hr>
+      <ul><li>Next: <a href="/posts/4.2-Trust/">4.2. Trust</a></li><li>Previous: <a href="/posts/4-Ideas/">4. Ideas</a></li>
+      </ul>
+
+    </div>
+    <aside class="grid-sidebar">
+
+      
+      <h3>Latest 3 Posts</h1>
+
+      
+      
+      <ul reversed class="postlist"}">
+
+  <li class="postlist-item">
+    <a href="/posts/7-Related-Work/" class="postlist-link">7. Related Work</a>
+    
+  </li>
+
+  <li class="postlist-item">
+    <a href="/posts/6.3-Sending-Service/" class="postlist-link">6.3. Sending Service</a>
+    
+  </li>
+
+  <li class="postlist-item">
+    <a href="/posts/6.2-Receiving-Service/" class="postlist-link">6.2. Receiving Service</a>
+    
+  </li>
+
+</ul>
+
+
+      <p>More posts can be found in <a href="/posts/">the archive</a>.</p>
+    </aside>
+  </div>
+</div>
+
+
+
+    </main>
+
+    <footer></footer>
+
+    <!-- Current page: /posts/4.1-Interoperability/ -->
+  </body>
+</html>

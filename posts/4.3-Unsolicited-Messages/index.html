@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4.3. Unsolicited Messages</title>
+    <meta name="description" content="Ideas for portable, secure, private messaging">
+
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/prism-base16-monokai.dark.css">
+    <link rel="stylesheet" href="/css/prism-diff.css">
+    <link rel="stylesheet" href="https://unpkg.com/katex@latest/dist/katex.min.css">
+    <link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="Modern Interoperable Messaging">
+    <link rel="alternate" href="/feed/feed.json" type="application/json" title="Modern Interoperable Messaging">
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/">Modern Interoperable Messaging</a></h1>
+      <ul class="nav">
+        <li class="nav-item"><a href="/">Home</a></li>
+        <li class="nav-item"><a href="/posts/">Archive</a></li>
+        <li class="nav-item"><a href="/about/">About Me</a></li>
+      </ul>
+    </header>
+
+    <main class="tmpl-post">
+
+      <div class="wrapper">
+  <div class="grid">
+    <div class="grid-main">
+
+      <h1>4.3. Unsolicited Messages</h1>
+
+      <p>The threat model of unsolicited mail changes considerably if only some <a href="/posts/5.2-Self-introductions">defined endpoints</a> are open to arbitrary senders. Rate limiting can be applied at the point of establishing those self-introductions, not at the point of message receipt.</p>
+<p>Outside of those self-introductions, messages in the proton architecture are dropped unless they have a correctly formed address (including a recipient signature on an intermeidate form of the address), and a correct sender signature for the expected sender for that address.</p>
+<p>Today, spammers have an easy task of obtaining or guessing static, low entropy recipient addresses, and their primary challenge is convincing recipient systems to accept bulk messages. They can often do so by aggregating false individual users (phone number and email accounts), that are difficult to distinguish from normal users until they have successfully sent enough unsolicited mail to be flagged by volume, content, or other behavior as a bulk mailer.</p>
+<p>Under the proton architecture, addresses are high-entropy and easily updated. If an attacker is successful in obtaining or guessing an address, they still have to forge a sender signature, at which point they can only pose as the expected sender, not as an arbitrary new identity.</p>
+<p>The key difference is that where as today, spammers are successful until flagged, authentication prevents spammers from successfully sending unsolicited messages, and attempts to learn information by enumerating the address space or using recipients as encryption oracles exhibit behavior that can be identified and blocked.</p>
+<p>Consequently, receiving services, in accepting a message from sending services, should only confirm the correct acceptance of bytes (and any transport layer message integrity), not the validity of any particular address. Failure to resolve the address, in volume, should be considered a reputational hit for that particular sending service.</p>
+<h3 id="device-compromise" tabindex="-1">Device compromise <a class="direct-link" href="#device-compromise" aria-hidden="true">#</a></h3>
+<p>This does raise the incentive to compromise devices to obtain sender signing keys. The attacker's ability is more powerful in that they can impersonate that particular sender, but limits their ability to pose as an alternate identity.</p>
+
+      <hr>
+      <ul><li>Next: <a href="/posts/4.4-Transit-Privacy/">4.4. Message Privacy in Transit</a></li><li>Previous: <a href="/posts/4.2-Trust/">4.2. Trust</a></li>
+      </ul>
+
+    </div>
+    <aside class="grid-sidebar">
+
+      
+      <h3>Latest 3 Posts</h1>
+
+      
+      
+      <ul reversed class="postlist"}">
+
+  <li class="postlist-item">
+    <a href="/posts/7-Related-Work/" class="postlist-link">7. Related Work</a>
+    
+  </li>
+
+  <li class="postlist-item">
+    <a href="/posts/6.3-Sending-Service/" class="postlist-link">6.3. Sending Service</a>
+    
+  </li>
+
+  <li class="postlist-item">
+    <a href="/posts/6.2-Receiving-Service/" class="postlist-link">6.2. Receiving Service</a>
+    
+  </li>
+
+</ul>
+
+
+      <p>More posts can be found in <a href="/posts/">the archive</a>.</p>
+    </aside>
+  </div>
+</div>
+
+
+
+    </main>
+
+    <footer></footer>
+
+    <!-- Current page: /posts/4.3-Unsolicited-Messages/ -->
+  </body>
+</html>
