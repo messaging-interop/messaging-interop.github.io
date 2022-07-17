@@ -39,7 +39,7 @@ Alex, from a device, wants to send a message to Blair using that identity. Indiv
 
 Alex's device, then, should engage a persistently online sending service to offload outgoing messages from their device. That sending service can then attempt & retry delivery to the remote party's online agent for receiving messages.
 
-These agents have asymmetric roles. Sending services are relatively simple - their role is to take a message from a device and faithfully deliver it to another server endpoint. The [reference implementation] discusses how sending services can authenticate users without authenticating each message.
+These agents have asymmetric roles. Sending services are relatively simple - their role is to take a message from a device and faithfully deliver it to another server endpoint. The [reference implementation](posts/6.3-Sending-Service) discusses how sending services can authenticate users without authenticating each message.
 
 Receiving services have a more complex role, since they need to distinguish among incoming messages, which users to route those messages to. Their responsibiity is to keep that knowledge private, by suppring a [virtual address scheme]((/posts/4.4-Transit-Privacy)) that allows senders to use different addresses for each message.
 They may engage in strategies to reduce their knowledge about this mapping - a maximalist strategy would be to deliver every message to every user.
