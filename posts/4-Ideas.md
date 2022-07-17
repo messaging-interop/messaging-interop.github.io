@@ -5,10 +5,10 @@ date: 2022-07-05
 tags:
 layout: layouts/post.njk
 ---
-We've now described enough of the architecture and mechanics to discuss the core goals and ideas
+We've now described enough of the architecture and mechanics to discuss the core goals and ideas.
 
 ## Goals
-The core goal of this architecture to support the store and forward delivery of discrete messages, end to end encrypted between people as represented by cryptographic identities.
+The core goal of this architecture is to support the store and forward delivery of discrete messages, end to end encrypted between people as represented by cryptographic identities.
 
 These messages should have a size limit sufficient to allow for structured objects conveying Unicode encoded text, cryptographic keys, and URI's, but should not be a mechanism to transmit arbitrary packetized data. Each message should correspond to a human action (modulo automated state handling -e.g. an ack- of equal but no greater magnitude) - this forms a natural rate limit.
 
@@ -64,4 +64,4 @@ Given that relationship managers are responsible for safeguarding a user's crypt
 
 
 [^1]: SMS Gateway https://en.wikipedia.org/wiki/SMS_gateway
-[^2]: APNS (iOS) and Android both have a payload limit of 4KBhttps://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html. https://firebase.google.com/docs/cloud-messaging/concept-options
+[^2]: APNS (iOS) and Android both have a payload limit of 4KB:https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html  https://firebase.google.com/docs/cloud-messaging/concept-options
