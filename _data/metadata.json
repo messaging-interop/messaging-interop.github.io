@@ -1,0 +1,21 @@
+{
+  "title": "Modern Interoperable Messaging",
+  "url": "https://messaging-interop.github.io/",
+  "language": "en",
+  "description": "Ideas for portable, secure, private messaging",
+  "feed": {
+    "subtitle": "Ideas for portable, secure, private messaging.",
+    "filename": "feed.xml",
+    "path": "/feed/feed.xml",
+    "id": "https://example.com/"
+  },
+  "jsonfeed": {
+    "path": "/feed/feed.json",
+    "url": "https://example.com/feed/feed.json"
+  },
+  "author": {
+    "name": "Mark Xue",
+    "email": "messaging-interop@mxue.org",
+    "url": "https://messaging-interop.github.io/about/"
+  }
+}

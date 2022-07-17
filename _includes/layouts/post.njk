@@ -1,0 +1,45 @@
+---
+layout: layouts/base.njk
+templateClass: tmpl-post
+---
+<div class="wrapper">
+  <div class="grid">
+    <div class="grid-main">
+
+      <h1>{{ title }}</h1>
+
+      {%- for tag in tags | filterTagList %}
+      {%- set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
+      <a href="{{ tagUrl | url }}" class="post-tag">{{ tag }}</a>
+      {%- endfor %}
+
+      {{ content | latex | safe }}
+
+      {%- if collections.posts %}
+      {%- set nextPost = collections.posts | getNextCollectionItem(page) %}
+      {%- set previousPost = collections.posts | getPreviousCollectionItem(page) %}
+      {%- if nextPost or previousPost %}
+      <hr>
+      <ul>
+        {%- if nextPost %}<li>Next: <a href="{{ nextPost.url | url }}">{{ nextPost.data.title }}</a></li>{% endif %}
+        {%- if previousPost %}<li>Previous: <a href="{{ previousPost.url | url }}">{{ previousPost.data.title }}</a></li>{% endif %}
+      </ul>
+      {%- endif %}
+      {%- endif %}
+
+    </div>
+    <aside class="grid-sidebar">
+
+      {% set maxPosts = collections.posts.length | min(3) %}
+      <h3>Latest {% if maxPosts == 1 %}Post{% else %}{{ maxPosts }} Posts{% endif %}</h1>
+
+      {% set postslist = collections.posts | head(-3) %}
+      {% set postslistCounter = collections.posts | length %}
+      {% include "postslist.njk" %}
+
+      <p>More posts can be found in <a href="{{ '/posts/' | url }}">the archive</a>.</p>
+    </aside>
+  </div>
+</div>
+
+

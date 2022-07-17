@@ -1,0 +1,15 @@
+---
+layout: layouts/post.njk
+eleventyNavigation:
+  key: Home
+  order: 1
+---
+{% for post in collections.frontMatter | head(-1) %}
+  <h1>{{ post.data.title }}</h1>
+  {{ post.templateContent | safe }}
+  {% endfor %}
+
+
+
+
+
