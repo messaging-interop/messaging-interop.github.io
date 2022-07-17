@@ -31,7 +31,7 @@ Today, secure messaging at scale (Signal, WhatsApp, and iMessage) sits in centra
 
 In practice, the fracturing of people’s social relationships among those ecosystems results in the frustrating experience of using multiple messaging apps simultaneously - and worse, fracturing conversations with the same person across multiple apps. There’s been a renewed interest in interoperability, spurred by the EU’s requirement for such in the DMA. [^1] [^2]
 
-Rather than simply guling these systems together, I propose a vision of a modern messaging system that provides:
+Rather than simply gluing these systems together, I propose a vision of a modern messaging system that provides:
 - Unified identity across modes of conversation
   - I should be able to use a single identity to exchange messages or email - my identity shouldn't depend on the app I use or the underlying transport technology.
 - Diversified identity across different conversations
