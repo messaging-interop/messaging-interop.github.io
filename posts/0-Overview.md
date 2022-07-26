@@ -69,5 +69,5 @@ We can build a new communications architecture that more naturally maps to our r
 
 [^2]: [How do you implement interoperability in a DMA world? | Matrix.org](https://matrix.org/blog/2022/03/29/how-do-you-implement-interoperability-in-a-dma-world) https://matrix.org/blog/2022/03/29/how-do-you-implement-interoperability-in-a-dma-world
 
-[^3] Alex Muffet makes the case clearly here: https://alecmuffett.com/alecm/e2e-primer/e2e-primer-web.html#interoperability
+[^3]: Alec Muffet makes the case clearly here: https://alecmuffett.com/alecm/e2e-primer/e2e-primer-web.html#interoperability
 
