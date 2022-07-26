@@ -45,7 +45,13 @@ Rather than simply gluing these systems together, I propose a vision of a modern
   - Messages are transmitted with ephemeral addresses
 - Protection against unsolicited messages
 
-### Motivation
+## Motivation
+
+Interoperability between different E2E messaging apps - that is, a user in WhatsApp messaging a user in Signal as the DMA envisions it - will degrade the security and user experience that people have today in messaging apps[^3]. What exists today are secure, expressive, silos of E2E messaging, sitting atop the identities from insecure but interoperable transports of SMS and email.
+
+To attempt to flatten this layering, as the DMA does, risks losing much of what makes modern messaging secure and expressive. What I propose here is an approach to bringing modern concepts of E2E security, cryptographic identities, portability, and permission to contact to an underlying, federated messaging layer that accomodates the broadest diversity of human relationships. Atop which people can still coordinate to use a particular app or medium to communicate in ways that differentiate themselves from the base layer in unique ways like security or expressiveness. 
+
+### Identity
 
 I am not my phone number or email address(es). But these digital addresses have become our de facto online identities. And while they have become so for very [good reasons](/posts/1-Messaging-Today), singular delivery addresses make it cumbersome to manage the many different identities we have in our lives - with family, friends, classmates, coworkers, and all the other social circles we inhabit. People go to great lengths and costs to acquire additional phone numbers or email addresses to keep those social circles separate.
 
@@ -62,4 +68,6 @@ We can build a new communications architecture that more naturally maps to our r
 [^1]: [End-to-End Encryption and Messaging Interoperability](https://educatedguesswork.org/posts/messaging-e2e/) https://educatedguesswork.org/posts/messaging-e2e/
 
 [^2]: [How do you implement interoperability in a DMA world? | Matrix.org](https://matrix.org/blog/2022/03/29/how-do-you-implement-interoperability-in-a-dma-world) https://matrix.org/blog/2022/03/29/how-do-you-implement-interoperability-in-a-dma-world
+
+[^3] Alex Muffet makes the case clearly here: https://alecmuffett.com/alecm/e2e-primer/e2e-primer-web.html#interoperability
 
