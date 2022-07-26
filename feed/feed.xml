@@ -33,13 +33,27 @@
 		<id>https://messaging-interop.github.io/posts/6.3-Sending-Service/</id>
 		<content type="html">&lt;p&gt;The main function of a sending service is as an agent of the user to receive encrypted messages from a user’s device and route them to a receiving service.&lt;/p&gt;
 &lt;p&gt;To keep the system performant, the Proton protocol should have an established maximum size. Conformant with other secure messaging protocols, larger attachments can be transmitted out of band of the messaging protocol by uploading an encrypted blob to cloud storage and transmitting the symmetric key through the messaging protocol. The sending service is the most natural place to host this blob storage, as an agent of the sender. Sending services can also serve to abstract away a user’s many devices by providing a way to deduplicate responses from many devices (e.g. an ack message from all of a user’s devices).&lt;/p&gt;
-&lt;h3 id=&quot;basic-implementation&quot; tabindex=&quot;-1&quot;&gt;Basic Implementation &lt;a class=&quot;direct-link&quot; href=&quot;https://messaging-interop.github.io/posts/6.3-Sending-Service/#basic-implementation&quot; aria-hidden=&quot;true&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;h2 id=&quot;basic-implementation&quot; tabindex=&quot;-1&quot;&gt;Basic Implementation &lt;a class=&quot;direct-link&quot; href=&quot;https://messaging-interop.github.io/posts/6.3-Sending-Service/#basic-implementation&quot; aria-hidden=&quot;true&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;A basic service provider disassociates outgoing messages from user accounts by use of &lt;a href=&quot;https://blog.cloudflare.com/eliminating-captchas-on-iphones-and-macs-using-new-standard/&quot;&gt;private access tokens&lt;/a&gt; to rate limit an unauthenticated endpoint.&lt;/p&gt;
 &lt;p&gt;The service provider exposes 2 API’s:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;A message send API, where users provide a private access token, a receiving service (by domain), a recipient address, and an encrypted cipher text.&lt;/li&gt;
 &lt;li&gt;A blob upload API, which accepts (a different class of) private access token a file upload, and returns a url for the file.&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&quot;supporting-services&quot; tabindex=&quot;-1&quot;&gt;Supporting Services &lt;a class=&quot;direct-link&quot; href=&quot;https://messaging-interop.github.io/posts/6.3-Sending-Service/#supporting-services&quot; aria-hidden=&quot;true&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;A sending service is also a natural place to host supporting functionality.&lt;/p&gt;
+&lt;h3 id=&quot;message-de-duplication&quot; tabindex=&quot;-1&quot;&gt;Message De-duplication &lt;a class=&quot;direct-link&quot; href=&quot;https://messaging-interop.github.io/posts/6.3-Sending-Service/#message-de-duplication&quot; aria-hidden=&quot;true&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;To help a user&#39;s devices appear as a single entity to remote parties, some messages should be coalesced into one. E.g. if relationship managers acknowledge receipt of messages, N ack&#39;s will reveal that the recipient has N online devices. For automated messages like these, relationship managers can attach a message de-dupe id (and agree between devices on a consistent method of generating it), so that the sending service implements a policy of only sending one message for a particular de-dupe id.&lt;/p&gt;
+&lt;h3 id=&quot;synchronizing-cross-user-state&quot; tabindex=&quot;-1&quot;&gt;Synchronizing Cross-user state &lt;a class=&quot;direct-link&quot; href=&quot;https://messaging-interop.github.io/posts/6.3-Sending-Service/#synchronizing-cross-user-state&quot; aria-hidden=&quot;true&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Decentralized state management across users is a complex problem. This comes from a number of applications, including group membership and state.&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://messaging-interop.github.io/posts/6.3-Sending-Service/#fn1&quot; id=&quot;fnref1&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt; Sending services, as a agent of user&#39;s devices in hosting data for persistent availabilty by other parties, can also host canonical state of this kind. A sending service acting in this way would fulfill the message ordering function of a delivery service in the MLS architecture.&lt;/p&gt;
+&lt;p&gt;Because there are no inherent links between a user&#39;s identity (or addresses) within a group, and their identity in other conversations, a sending server can safely hold delivery addresses and IPK&#39;s for group members, so that it can perform more complex functions of message fan-out, and sending end to end encrypted messages between the sending service and member protons.&lt;/p&gt;
+&lt;hr class=&quot;footnotes-sep&quot; /&gt;
+&lt;section class=&quot;footnotes&quot;&gt;
+&lt;ol class=&quot;footnotes-list&quot;&gt;
+&lt;li id=&quot;fn1&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;Signal explains the reasons they moved to a centralized, server-maintained group state, and their mitigations to preserve group privacy: &lt;a href=&quot;https://signal.org/blog/signal-private-group-system/&quot;&gt;https://signal.org/blog/signal-private-group-system/&lt;/a&gt; &lt;a href=&quot;https://messaging-interop.github.io/posts/6.3-Sending-Service/#fnref1&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
 </content>
 	</entry>
 	
@@ -353,6 +367,23 @@ The receiving service should expose API to Relationship Managers for address man
 &lt;p&gt;The RM provides an API for the SS to tell it of changes to the sending configuration (specifically, permitted payload sizes), and available sending options (e.g. a privacy vs latency trade off)&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&quot;portability&quot; tabindex=&quot;-1&quot;&gt;Portability &lt;a class=&quot;direct-link&quot; href=&quot;https://messaging-interop.github.io/posts/4.1-Interoperability/#portability&quot; aria-hidden=&quot;true&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;These interfaces allow for easy portability&lt;/p&gt;
+&lt;h3 id=&quot;sending-service&quot; tabindex=&quot;-1&quot;&gt;Sending Service &lt;a class=&quot;direct-link&quot; href=&quot;https://messaging-interop.github.io/posts/4.1-Interoperability/#sending-service&quot; aria-hidden=&quot;true&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Relationship managers may switch arbitrarily among sending services without any cooperation from remote parties. People should maintain at least 2 for redundancy, and relationship managers may freely use any service that the user has configured.&lt;/p&gt;
+&lt;h3 id=&quot;receiving-service&quot; tabindex=&quot;-1&quot;&gt;Receiving Service &lt;a class=&quot;direct-link&quot; href=&quot;https://messaging-interop.github.io/posts/4.1-Interoperability/#receiving-service&quot; aria-hidden=&quot;true&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Because addresses have a finite lifetime, and relationship managers can safely and automatically update them without user intervention, people can safely cutover from one receiving service to another without losing messages. They should already have redundant receiving services configured.&lt;/p&gt;
+&lt;p&gt;After a user tells their relationship manger to sunset a particular receiving service R&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The relationship manager should cease issuing addresses from R and cut over to alternate receiving services.
+&lt;ul&gt;
+&lt;li&gt;The user can safely terminate their relationship with R after the last issued address has expired&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;relationship-manager&quot; tabindex=&quot;-1&quot;&gt;Relationship Manager &lt;a class=&quot;direct-link&quot; href=&quot;https://messaging-interop.github.io/posts/4.1-Interoperability/#relationship-manager&quot; aria-hidden=&quot;true&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Switching relationship managers is more complex. Relationship managers should allow users to export their messages (it&#39;s their data), but to preserve the security of a user&#39;s communications, relationship managers should not allow the export of private keys. When people choose to switch relationship managers (e.g. from a cross-platform app to the platform&#39;s native implementation of a relationship manager, or vice versa), this necessarily has to be an event visible to remote parties as an introduction.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://messaging-interop.github.io/posts/5.1-Backup.md&quot;&gt;Backed-up relationships and future identities&lt;/a&gt; form a useful data structure that can be safely handed off to a successor app, that takes over identities from the previous app.&lt;/p&gt;
 </content>
 	</entry>
 	
@@ -365,7 +396,7 @@ The receiving service should expose API to Relationship Managers for address man
 &lt;h2 id=&quot;goals&quot; tabindex=&quot;-1&quot;&gt;Goals &lt;a class=&quot;direct-link&quot; href=&quot;https://messaging-interop.github.io/posts/4-Ideas/#goals&quot; aria-hidden=&quot;true&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;The core goal of this architecture is to support the store and forward delivery of discrete messages, end to end encrypted between people as represented by cryptographic identities.&lt;/p&gt;
 &lt;p&gt;These messages should have a size limit sufficient to allow for structured objects conveying Unicode encoded text, cryptographic keys, and URI&#39;s, but should not be a mechanism to transmit arbitrary packetized data. Each message should correspond to a human action (modulo automated state handling -e.g. an ack- of equal but no greater magnitude) - this forms a natural rate limit.&lt;/p&gt;
-&lt;p&gt;The idea is rooted in messaging, but extends to things like emails, sharing invitations, moves in a turn-based game. It is not, for example, a real-time streaming format for audio, video, or movements in a real-time game. However, it can be used to exchange data needed to bootstrap a streaming session between members of a proton relationship.&lt;/p&gt;
+&lt;p&gt;The idea is rooted in messaging, but extends to other data that people can exchange like emails, sharing invitations, call invitations, or moves in a turn-based game. It is not a real-time streaming format for audio, video, or movements in a real-time game, which should utilize a streaming transport. However, it can be used to exchange data needed to bootstrap a streaming session between members of a proton relationship.&lt;/p&gt;
 &lt;p&gt;There is no guarantee of ordering, nor should clients attempt to fit large payloads in multiple messages - messages that exceed the base size (pictures, long emails, documents) should be handled as &lt;a href=&quot;https://messaging-interop.github.io/posts/5.3-Attachments&quot;&gt;attachments&lt;/a&gt; as they commonly are today.&lt;/p&gt;
 &lt;p&gt;Organizations with one to many relationships can fit into this framework, discussed further in &lt;a href=&quot;https://messaging-interop.github.io/posts/5.3-Organizations&quot;&gt;Organizational Identity&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;deconstructed-messaging&quot; tabindex=&quot;-1&quot;&gt;Deconstructed Messaging &lt;a class=&quot;direct-link&quot; href=&quot;https://messaging-interop.github.io/posts/4-Ideas/#deconstructed-messaging&quot; aria-hidden=&quot;true&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
@@ -373,7 +404,7 @@ The receiving service should expose API to Relationship Managers for address man
 &lt;ul&gt;
 &lt;li&gt;Authentication - each service manages its own set of identities, tied to an external identity (phone number)&lt;/li&gt;
 &lt;li&gt;Message transport&lt;/li&gt;
-&lt;li&gt;Client application that stores the user&#39;s messages after receipt, and has some variation in custom message types.&lt;/li&gt;
+&lt;li&gt;Client application that stores the user&#39;s messages after receipt, and implements a variety of message payloads - standard (images, links) and custom (payments)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Traditionally, identity has also been bound up with transport. To issue phone numbers, you must be a carrier. The issuer of an email identity are the parties that route the email. This both places a high bar on issuing identities, and binds identity to the service. There&#39;s been mixed success in the ecosystem of mail client applications - recent entrants have depended on the integration of client app and the email service.&lt;/p&gt;
 &lt;p&gt;For conversations to be portable, they should handle identity independently from transport. For conversations to be interoperable, users need to be able to make independent choices about service providers and client applications.&lt;/p&gt;
@@ -383,24 +414,23 @@ The receiving service should expose API to Relationship Managers for address man
 &lt;h3 id=&quot;transport&quot; tabindex=&quot;-1&quot;&gt;Transport &lt;a class=&quot;direct-link&quot; href=&quot;https://messaging-interop.github.io/posts/4-Ideas/#transport&quot; aria-hidden=&quot;true&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Alex, from a device, wants to send a message to Blair using that identity. Individual devices are imperfectly online - we want to offload the store and forward to online services that act as online agents for our devices.&lt;/p&gt;
 &lt;p&gt;Alex&#39;s device, then, should engage a persistently online sending service to offload outgoing messages from their device. That sending service can then attempt &amp;amp; retry delivery to the remote party&#39;s online agent for receiving messages.&lt;/p&gt;
-&lt;p&gt;These agents have asymmetric roles. Sending services are relatively simple - their role is to take a message from a device and faithfully deliver it to another server endpoint. The &lt;a href=&quot;https://messaging-interop.github.io/posts/4-Ideas/posts/6.3-Sending-Service&quot;&gt;reference implementation&lt;/a&gt; discusses how sending services can authenticate users without authenticating each message.&lt;/p&gt;
+&lt;p&gt;These agents have asymmetric roles. Sending services are relatively simple - their role is to take a message from a device and faithfully deliver it to another server endpoint. The &lt;a href=&quot;https://messaging-interop.github.io/posts/4-Ideas/posts/6.3-Sending-Service&quot;&gt;reference implementation&lt;/a&gt; discusses how sending services can authenticate users without authenticating each message. They have related functionality&lt;/p&gt;
 &lt;p&gt;Receiving services have a more complex role, since they need to distinguish among incoming messages, which users to route those messages to. Their responsibiity is to keep that knowledge private, by suppring a &lt;a href=&quot;https://messaging-interop.github.io/posts/4-Ideas/(/posts/4.4-Transit-Privacy)&quot;&gt;virtual address scheme&lt;/a&gt; that allows senders to use different addresses for each message.
 They may engage in strategies to reduce their knowledge about this mapping - a maximalist strategy would be to deliver every message to every user.&lt;/p&gt;
 &lt;h2 id=&quot;reconstructing&quot; tabindex=&quot;-1&quot;&gt;Reconstructing &lt;a class=&quot;direct-link&quot; href=&quot;https://messaging-interop.github.io/posts/4-Ideas/#reconstructing&quot; aria-hidden=&quot;true&quot;&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Systems that allow users to make complex choices should not force everyone to - progressive disclsoure is essential to accomodate everyone. How do we make this architecture easy for people to use?&lt;/p&gt;
+&lt;p&gt;This is a flexible system that allows users to make complex choices - but it is essential to have progressive complexity that doesn&#39;t require everyone to make these choices to use the system.&lt;/p&gt;
+&lt;p&gt;People&#39;s primary or initial interaction with this architecture will be through the relationship manager app, as the way that they start relationships and communicate within them. It serves a set of functions that combine what people typically do within their messaging, contacts, and password manager apps. For simplicity, these apps should come with default receiving, sending, and identity attestation services out of the box, just as messaging apps do today with their backing service.&lt;/p&gt;
 &lt;h3 id=&quot;services&quot; tabindex=&quot;-1&quot;&gt;Services &lt;a class=&quot;direct-link&quot; href=&quot;https://messaging-interop.github.io/posts/4-Ideas/#services&quot; aria-hidden=&quot;true&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;The core assumption that the architecture is sized for human-initiated, text and code payloads ensures that it should be economical to provide at scale. Both Apple and Google provide a free receiving service for their mobile OS&#39;s in the form of push notification services&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://messaging-interop.github.io/posts/4-Ideas/#fn2&quot; id=&quot;fnref2&quot;&gt;[2]&lt;/a&gt;&lt;/sup&gt; - which end to end messaging systems already run on top of for the last leg of delivery to mobile devices.&lt;/p&gt;
-&lt;p&gt;Operating System vendors and app developers should be able offer to a free messaging tier of sending and receiving services. For redundancy and recoverabiity, users should have multiple ones - and the architecture allows people to use and change them interchangeably and invisibly to the conduct of their conversation.&lt;/p&gt;
-&lt;p&gt;Attachments have more variable resource usage, and different economic models might support greater capacity to send attachments.&lt;/p&gt;
-&lt;h3 id=&quot;software&quot; tabindex=&quot;-1&quot;&gt;Software &lt;a class=&quot;direct-link&quot; href=&quot;https://messaging-interop.github.io/posts/4-Ideas/#software&quot; aria-hidden=&quot;true&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;A relationship manager is the core software application that people will interact with. It combines functions that people today perform in contacts apps, password managers. To reduce complexity, it should come with a default sending and receiving service, and implement basic functionality to exchange short messages and long mails.&lt;/p&gt;
-&lt;p&gt;Given that relationship managers are responsible for safeguarding a user&#39;s cryptographic identity secrets, and synchronizing them between trusted devices, it logically follows that the relationship manager should also be responsible for storing and synchronizes the decrypted messages. This allows for a consistent expectation about the security of a user&#39;s communications, across modes, and across devices.&lt;/p&gt;
+&lt;p&gt;Sending and receiving services should be cheap to run - they are scaled for human-initiated text and code payloads. Both Apple and Google provide a free receiving service for their mobile OS&#39;s in the form of push notification services&lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://messaging-interop.github.io/posts/4-Ideas/#fn2&quot; id=&quot;fnref2&quot;&gt;[2]&lt;/a&gt;&lt;/sup&gt; - which end to end encrypted messaging systems today already run on top of for the last leg of delivery to mobile devices. A free tier might include an attachment service sufficient to allow users to send text attachments and images as existing services provide today. Just as with cloud hosting, a variety of economic models might support higher tiers of utilization.&lt;/p&gt;
+&lt;p&gt;Key to this assumption is the distinction that sending and receiving services are responsible for message transport (and optionally hosting attachments), not the storage of the resulting plaintext.&lt;/p&gt;
+&lt;p&gt;Because the relationship manager is responsible for the security of a person&#39;s private keys for their cryptographic identities, and for the backup and recovery of the corresponding relationships, it should also be the default agent for cloud storage and backup of a user&#39;s decrypted messages.&lt;/p&gt;
 &lt;hr class=&quot;footnotes-sep&quot; /&gt;
 &lt;section class=&quot;footnotes&quot;&gt;
 &lt;ol class=&quot;footnotes-list&quot;&gt;
 &lt;li id=&quot;fn1&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;SMS Gateway &lt;a href=&quot;https://en.wikipedia.org/wiki/SMS_gateway&quot;&gt;https://en.wikipedia.org/wiki/SMS_gateway&lt;/a&gt; &lt;a href=&quot;https://messaging-interop.github.io/posts/4-Ideas/#fnref1&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&quot;fn2&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;APNS (iOS) and Android both have a payload limit of 4KB: &lt;a href=&quot;https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html&quot;&gt;https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html&lt;/a&gt;  &lt;a href=&quot;https://firebase.google.com/docs/cloud-messaging/concept-options&quot;&gt;https://firebase.google.com/docs/cloud-messaging/concept-options&lt;/a&gt; &lt;a href=&quot;https://messaging-interop.github.io/posts/4-Ideas/#fnref2&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
+&lt;li id=&quot;fn2&quot; class=&quot;footnote-item&quot;&gt;&lt;p&gt;APNS (iOS) and Android both have a payload limit of 4KB: &lt;a href=&quot;https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html&quot;&gt;https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html&lt;/a&gt;  &lt;a href=&quot;https://firebase.google.com/docs/cloud-messaging/concept-options&quot;&gt;https://firebase.google.com/docs/cloud-messaging/concept-options&lt;/a&gt;
+APNS provides a rudimentary form of virtual addressing, in which different developers get different addresses for the same device, to prevent tracking of user activity across apps. &lt;a href=&quot;https://messaging-interop.github.io/posts/4-Ideas/#fnref2&quot; class=&quot;footnote-backref&quot;&gt;↩︎&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/section&gt;
@@ -533,6 +563,7 @@ They may engage in strategies to reduce their knowledge about this mapping - a m
 &lt;li&gt;The delivery service is decentralized - each client is responsible for distributing messages, and publishing keys and pre-keys for new joiners
 &lt;ul&gt;
 &lt;li&gt;Proton groups may enlist the use of an Attestation Service to publish self-add pre-keys.&lt;/li&gt;
+&lt;li&gt;Proton groups may enlist the use of a server as the delivery service, to fan out messages and enforce a canonical ordering of epochs. The section on &lt;a href=&quot;https://messaging-interop.github.io/posts/6.3-Sending-Service&quot;&gt;sending services&lt;/a&gt; describes this.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -978,7 +1009,8 @@ This may be a public directory or an access controlled one.&lt;/li&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://messaging-interop.github.io/posts/5.1-Backup&quot;&gt;5.1 Backup&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://messaging-interop.github.io/posts/5.2-Self-introductions&quot;&gt;5.2 Self-introductions&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://messaging-interop.github.io/posts/5.3-Organizations&quot;&gt;5.3 Organizational Identity&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://messaging-interop.github.io/posts/5.3-Attachments&quot;&gt;5.3 Attachments&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://messaging-interop.github.io/posts/5.4-Organizations&quot;&gt;5.4 Organizational Identity&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;ol start=&quot;6&quot;&gt;
 &lt;li&gt;Sample Implementations&lt;/li&gt;
@@ -991,13 +1023,13 @@ This may be a public directory or an access controlled one.&lt;/li&gt;
 &lt;ol start=&quot;7&quot;&gt;
 &lt;li&gt;&lt;a href=&quot;https://messaging-interop.github.io/posts/7-Related-Work&quot;&gt;Related Work&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Today, secure messaging at scale (Signal, WhatsApp, and iMessage) sits in centralized ecosystems, each of them layering different crytographic identities atop the identity of a person&#39;s phone number.&lt;/p&gt;
+&lt;p&gt;Today, secure messaging at scale (Signal, WhatsApp, and iMessage) sits in centralized ecosystems, each of them layering different cryptographic identities atop a phone number that a person uses.&lt;/p&gt;
 &lt;p&gt;In practice, the fracturing of people’s social relationships among those ecosystems results in the frustrating experience of using multiple messaging apps simultaneously - and worse, fracturing conversations with the same person across multiple apps. There’s been a renewed interest in interoperability, spurred by the EU’s requirement for such in the DMA. &lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://messaging-interop.github.io/posts/0-Overview/#fn1&quot; id=&quot;fnref1&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt; &lt;sup class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;https://messaging-interop.github.io/posts/0-Overview/#fn2&quot; id=&quot;fnref2&quot;&gt;[2]&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 &lt;p&gt;Rather than simply gluing these systems together, I propose a vision of a modern messaging system that provides:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Unified identity across modes of conversation
 &lt;ul&gt;
-&lt;li&gt;I should be able to use a single identity to exchange messages or email - my identity shouldn&#39;t depend on the app I use or the underlying transport technology.&lt;/li&gt;
+&lt;li&gt;I should be able to use a single identity to exchange messages or email - my identity shouldn&#39;t depend on the app or service I use.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;Diversified identity across different conversations

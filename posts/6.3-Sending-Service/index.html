@@ -33,13 +33,27 @@
 
       <p>The main function of a sending service is as an agent of the user to receive encrypted messages from a user’s device and route them to a receiving service.</p>
 <p>To keep the system performant, the Proton protocol should have an established maximum size. Conformant with other secure messaging protocols, larger attachments can be transmitted out of band of the messaging protocol by uploading an encrypted blob to cloud storage and transmitting the symmetric key through the messaging protocol. The sending service is the most natural place to host this blob storage, as an agent of the sender. Sending services can also serve to abstract away a user’s many devices by providing a way to deduplicate responses from many devices (e.g. an ack message from all of a user’s devices).</p>
-<h3 id="basic-implementation" tabindex="-1">Basic Implementation <a class="direct-link" href="#basic-implementation" aria-hidden="true">#</a></h3>
+<h2 id="basic-implementation" tabindex="-1">Basic Implementation <a class="direct-link" href="#basic-implementation" aria-hidden="true">#</a></h2>
 <p>A basic service provider disassociates outgoing messages from user accounts by use of <a href="https://blog.cloudflare.com/eliminating-captchas-on-iphones-and-macs-using-new-standard/">private access tokens</a> to rate limit an unauthenticated endpoint.</p>
 <p>The service provider exposes 2 API’s:</p>
 <ul>
 <li>A message send API, where users provide a private access token, a receiving service (by domain), a recipient address, and an encrypted cipher text.</li>
 <li>A blob upload API, which accepts (a different class of) private access token a file upload, and returns a url for the file.</li>
 </ul>
+<h2 id="supporting-services" tabindex="-1">Supporting Services <a class="direct-link" href="#supporting-services" aria-hidden="true">#</a></h2>
+<p>A sending service is also a natural place to host supporting functionality.</p>
+<h3 id="message-de-duplication" tabindex="-1">Message De-duplication <a class="direct-link" href="#message-de-duplication" aria-hidden="true">#</a></h3>
+<p>To help a user's devices appear as a single entity to remote parties, some messages should be coalesced into one. E.g. if relationship managers acknowledge receipt of messages, N ack's will reveal that the recipient has N online devices. For automated messages like these, relationship managers can attach a message de-dupe id (and agree between devices on a consistent method of generating it), so that the sending service implements a policy of only sending one message for a particular de-dupe id.</p>
+<h3 id="synchronizing-cross-user-state" tabindex="-1">Synchronizing Cross-user state <a class="direct-link" href="#synchronizing-cross-user-state" aria-hidden="true">#</a></h3>
+<p>Decentralized state management across users is a complex problem. This comes from a number of applications, including group membership and state.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> Sending services, as a agent of user's devices in hosting data for persistent availabilty by other parties, can also host canonical state of this kind. A sending service acting in this way would fulfill the message ordering function of a delivery service in the MLS architecture.</p>
+<p>Because there are no inherent links between a user's identity (or addresses) within a group, and their identity in other conversations, a sending server can safely hold delivery addresses and IPK's for group members, so that it can perform more complex functions of message fan-out, and sending end to end encrypted messages between the sending service and member protons.</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Signal explains the reasons they moved to a centralized, server-maintained group state, and their mitigations to preserve group privacy: <a href="https://signal.org/blog/signal-private-group-system/">https://signal.org/blog/signal-private-group-system/</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
       <hr>
       <ul><li>Next: <a href="/posts/7-Related-Work/">7. Related Work</a></li><li>Previous: <a href="/posts/6.2-Receiving-Service/">6.2. Receiving Service</a></li>
