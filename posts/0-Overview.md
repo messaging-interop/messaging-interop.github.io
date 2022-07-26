@@ -20,20 +20,21 @@ layout: layouts/post.njk
 5. Other parts of the ecosystem
   - [5.1 Backup](/posts/5.1-Backup)
   - [5.2 Self-introductions](/posts/5.2-Self-introductions)
-  - [5.3 Organizational Identity](/posts/5.3-Organizations)
+  - [5.3 Attachments](/posts/5.3-Attachments)
+  - [5.4 Organizational Identity](/posts/5.4-Organizations)
 6. Sample Implementations
   - [6.1 Relationship Manager](/posts/6.1-Relationship-Manager)
   - [6.2 Receiving Service](/posts/6.2-Receiving-Service)
   - [6.3 Sending Service](/posts/6.3-Sending-Service)
 7. [Related Work](/posts/7-Related-Work)
 
-Today, secure messaging at scale (Signal, WhatsApp, and iMessage) sits in centralized ecosystems, each of them layering different crytographic identities atop the identity of a person's phone number.
+Today, secure messaging at scale (Signal, WhatsApp, and iMessage) sits in centralized ecosystems, each of them layering different cryptographic identities atop a phone number that a person uses.
 
 In practice, the fracturing of people’s social relationships among those ecosystems results in the frustrating experience of using multiple messaging apps simultaneously - and worse, fracturing conversations with the same person across multiple apps. There’s been a renewed interest in interoperability, spurred by the EU’s requirement for such in the DMA. [^1] [^2]
 
 Rather than simply gluing these systems together, I propose a vision of a modern messaging system that provides:
 - Unified identity across modes of conversation
-  - I should be able to use a single identity to exchange messages or email - my identity shouldn't depend on the app I use or the underlying transport technology.
+  - I should be able to use a single identity to exchange messages or email - my identity shouldn't depend on the app or service I use.
 - Diversified identity across different conversations
   - My ability to separate conversations and role-based identities is not limited to how many phone numbers or email addresses I have.
 - Interoperability and Portability

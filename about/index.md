@@ -7,4 +7,6 @@ eleventyNavigation:
   order: 3
 ---
 
-I was the the privacy engineer for iMessage and Facetime for several years, during which I helped ship Group FaceTime, FaceTime on the Web, Shareplay, and Messages Collaboration.
+I am currently unaffiliated, though most recently I was the privacy engineer for iMessage and Facetime for several years, during which I helped ship Group FaceTime, FaceTime on the Web, Shareplay, and Messages Collaboration.
+
+You can email me at messaging-interop at mxue dot org
