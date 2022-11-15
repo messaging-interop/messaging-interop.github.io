@@ -74,7 +74,7 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addCollection("frontMatter", function(collectionApi) {
     // Also accepts an array of globs!
-    return collectionApi.getAllSorted();
+    return collectionApi.getFilteredByGlob("posts/*.md");
   });
 
   // Customize Markdown library and settings:
