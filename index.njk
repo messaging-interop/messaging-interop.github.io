@@ -4,6 +4,8 @@ eleventyNavigation:
   key: Home
   order: 1
 ---
+If this is your first visit, I recommend starting with the <a href="/docs">Documentation</a>
+
 {% for post in collections.frontMatter | head(-1) %}
   <h1>{{ post.data.title }}</h1>
   {{ post.templateContent | safe }}

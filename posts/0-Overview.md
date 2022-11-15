@@ -7,26 +7,8 @@ layout: layouts/post.njk
 ---
 1. [Messaging as it exists today](/posts/1-Messaging-Today)
 2. [A vision for a future of messaging](/posts/2-Vision)
-3. [Core Concepts - Relationships](/posts/3-Relationships)
-  - [3.1 Identity](/posts/3.1-Identity)
-  - [3.2 Conversations](/posts/3.2-Conversations)
-  - [3.3 Groups and Introductions](/posts/3.3-Groups)
-  - [3.4 Multiple Devices](/posts/3.4-Devices)
-4. [Ideas](/posts/4-Ideas)
-  - [4.1 Interoperability](/posts/4.1-Interoperability)
-  - [4.2 Trust](/posts/4.2-Trust)
-  - [4.3 Unsolicited Messages](/posts/4.3-Unsolicited-Messages)
-  - [4.4 Message privacy in transit](/posts/4.4-Transit-Privacy)
-5. Other parts of the ecosystem
-  - [5.1 Backup](/posts/5.1-Backup)
-  - [5.2 Self-introductions](/posts/5.2-Self-introductions)
-  - [5.3 Attachments](/posts/5.3-Attachments)
-  - [5.4 Organizational Identity](/posts/5.4-Organizations)
-6. Sample Implementations
-  - [6.1 Relationship Manager](/posts/6.1-Relationship-Manager)
-  - [6.2 Receiving Service](/posts/6.2-Receiving-Service)
-  - [6.3 Sending Service](/posts/6.3-Sending-Service)
-7. [Related Work](/posts/7-Related-Work)
+
+[Documentation](/docs)
 
 Today, secure messaging at scale (Signal, WhatsApp, and iMessage) sits in centralized ecosystems, each of them layering different cryptographic identities atop a phone number that a person uses.
 
