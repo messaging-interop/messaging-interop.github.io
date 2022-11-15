@@ -20,6 +20,7 @@
         <li class="nav-item"><a href="/">Home</a></li>
         <li class="nav-item"><a href="/posts/">Archive</a></li>
         <li class="nav-item"><a href="/about/">About Me</a></li>
+        <li class="nav-item"><a href="/docs">Documentation</a></li>
       </ul>
     </header>
 
@@ -31,58 +32,8 @@
 
       <h1>3.4. Multiple Devices</h1>
 
-      <p>We’ve so far described relationships and conversations between Protons - elements which represent a contextual identity in a relationship or group.</p>
-<p>In practice, people use multiple devices, and want to communicate from those devices as a unified identity. What devices I want to use with an identity is an implementation detail that I should not have to share with everyone I talk to.</p>
-<p>MLS proposes<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>, and Signal and iMessage implement an architecture where devices are logically distinct members of a conversation or group, and the application layer abstracts (hides) that implementation by mapping devices to users by phone number. One could imagine that a proton could cryptographically attest to some set of devices with device-specific identity public keys.</p>
-<p>But within a federated system, I cannot rely on the remote party’s software hiding how many devices I have, as iMessage and Signal do. Protons represent an identity, and the devices I use are not part of that identity.</p>
-<p>Exposing to all of my relationships what devices I’m using, when that set changes, which device any particular message comes from, and if any particular device is late in sending automated replies like message ack’s, reveals private information that should be hidden from remote parties.</p>
-<p>A Proton represents an identity, not a device, and it is the responsibility of the relationship manager client to implement its own strategy for presenting multiple devices as a single cryptographic identity. Here are some possible strategies:</p>
-<ol>
-<li>Client fan-out
-<ul>
-<li>The proton cryptographic state is maintained on one device, which fans out decrypted messages to other devices through an end to end messaging channel between devices. This requires the fan-out device to be online to receive messages.</li>
-</ul>
-</li>
-<li>Fan-out to receive, designate a leader to send
-<ul>
-<li>Devices may share cryptographic state using end to end encrypted messaging and/or cloud storage.
-<ul>
-<li>Devices, when sending a message in a relationship, should also send them to all peer devices to ensure the peer devices advance their ratchet state in concert with the sending device.</li>
-</ul>
-</li>
-<li>Devices may receive messages in parallel with no issue, but should avoid synchronously sending messages, as this would result in reuse of message keys and possibly sending conflicting DH ratchet keys.</li>
-<li>Devices could agree on a leader that is responsible for sending, and may use a server to reach consensus or designate a particular device to lead. This guarantees there are no conflicts from devices synchronously sending messages from the same ratchet state.</li>
-<li>This improves on the reliability of client fan-out as devices do not depend on each other to receive messages, and can take over the sending role from offline devices.</li>
-</ul>
-</li>
-<li>Leaderless send and receive
-<ul>
-<li>As in (2), devices could share cryptographic state using end to end encrypted messaging and/or storage, and receive messages in parallel.</li>
-<li>Unlike above, devices do not deconflict their outgoing messages, but they can use heuristics to avoid unnecessarily doing so.</li>
-</ul>
-</li>
-</ol>
-<h3 id="leaderless-multi-device-double-ratchet" tabindex="-1">Leaderless multi-device double ratchet <a class="direct-link" href="#leaderless-multi-device-double-ratchet" aria-hidden="true">#</a></h3>
-<p>What happens if multiple devices that share cryptographic ratchet state, simultaneously send different messages from the same ratchet state? Let’s call this a synchronous send conflict. Reuse of a message key is simpler, does not affect the encryption of future messages, and clients can decide to accept or reject each message. Synchronously sending a DH ratchet, however, will cause the DH ratchet to fork, depending on which message’s DH keys are applied to the ratchet.</p>
-<p>To a recipient with a single device that has implemented double ratchet, receiving a synchronous send conflict appears to be a buggy client - perhaps one that has a multithreading bug. The recipient would accept the first message and reject the second when it later arrives.</p>
-<p>From the sender’s standpoint, the devices should learn about the conflict from the peer messages that the sending devices sent alongside the outgoing messages. The devices don’t have to perform the complex task of reaching consensus on which fork of the DH ratchet chain to advance on - the remote party’s ack of the first message they receive ( and the only one of the two they accept) will decide which DH ratchet fork everyone should use.</p>
-<p>Relationship Managers that support multiple clients need to implement a heuristic to converge on a single DH ratchet, independent of any strategy the remote party pursues:</p>
-<ul>
-<li>In a multiple device to multiple device scenario, we can’t rely on the remote party resolving the fork. If conflicting messages M1 and M2 are sent, we must account for the possibility that different remote devices will acknowledge M1 and M2.</li>
-<li>The relationship manager on each client should accept any DH ratchet step that is acknowledged by the remote party as valid. This may result in multiple valid ratchet steps, forking the DH chain, but devices should agree on the set of valid chains. When a device sends a (non-automated) message, it should apply a longest chain + lexicographic ordering of the valid chains, where the lexicographic ordering need only be consistent among devices of the same user.</li>
-<li>I have an intuition that this results in convergence on a single chain, so long as a user's devices (but not both users) agree on a lexicographic ordering.</li>
-</ul>
-<p>This scenario requires further analysis.</p>
-<h3 id="revocation" tabindex="-1">Revocation <a class="direct-link" href="#revocation" aria-hidden="true">#</a></h3>
-<p>Post compromise security should allow for recovery if a device is compromised and removed from the circle of trust. The users’s own devices should no longer copy the removed device on their own messages, and a DH ratchet should prevent the compromised device from decrypting future messages.</p>
-<p>If a user believes that the device's keys may be compromised (e.g. if removing a device is initiated from another device), it may be helpful to roll the IPK and designate a new IPK to follow the one that preceded the removal of a possibly compromised device.</p>
-<hr class="footnotes-sep">
-<section class="footnotes">
-<ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p><a href="https://messaginglayersecurity.rocks/mls-architecture/draft-ietf-mls-architecture.html#name-support-for-multiple-device">The Messaging Layer Security (MLS) Architecture - 5.6. Support for Multiple Devices</a><a href="https://messaginglayersecurity.rocks/mls-architecture/draft-ietf-mls-architecture.html#name-support-for-multiple-device">https://messaginglayersecurity.rocks/mls-architecture/draft-ietf-mls-architecture.html#name-support-for-multiple-device</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
-</li>
-</ol>
-</section>
+      <p>Edited Nov 14 2022:</p>
+<p>Replaced by the <a href="/docs/devices.html">Devices</a> section of the protocol documentation.</p>
 
       <hr>
       <ul><li>Next: <a href="/posts/4-Ideas/">4. Ideas</a></li><li>Previous: <a href="/posts/3.3-Groups/">3.3. Groups and Introductions</a></li>
@@ -99,17 +50,17 @@
       <ul reversed class="postlist"}">
 
   <li class="postlist-item">
+    <a href="/posts/reorg/" class="postlist-link">Reorganization</a>
+    
+  </li>
+
+  <li class="postlist-item">
     <a href="/posts/7-Related-Work/" class="postlist-link">7. Related Work</a>
     
   </li>
 
   <li class="postlist-item">
     <a href="/posts/6.3-Sending-Service/" class="postlist-link">6.3. Sending Service</a>
-    
-  </li>
-
-  <li class="postlist-item">
-    <a href="/posts/6.2-Receiving-Service/" class="postlist-link">6.2. Receiving Service</a>
     
   </li>
 

@@ -20,6 +20,7 @@
         <li class="nav-item"><a href="/">Home</a></li>
         <li class="nav-item"><a href="/posts/">Archive</a></li>
         <li class="nav-item"><a href="/about/">About Me</a></li>
+        <li class="nav-item"><a href="/docs">Documentation</a></li>
       </ul>
     </header>
 
@@ -31,60 +32,8 @@
 
       <h1>3.1. Identity</h1>
 
-      <p>A <a href="/posts/3-Relationships">Proton Relationship</a>  gives us a way to send and receive messages with other cryptographic identities. It provides, for our convenience, the remote party’s preferred representation - a preferred name, maybe pronouns or an image. But how can I know who I’m really talking to?</p>
-<p>With phone numbers, how does Alex know that a phone number is Blair’s? Blair could have told Alex directly or over a (possibly insecure) channel; mutual acquaintances may have introduced them, or Alex was able to look up Blair with an external resource - for example, a directory or website.</p>
-<p>Proton Identities mirror these actions - our trust in them is based on “how did I get this identity key?” and “who can vouch for it?:</p>
-<ul>
-<li>Direct Key Exchange - “I got this key from Blair”
-<ul>
-<li>Users can securely establish a local connection (like Bluetooth Pairing) to exchange information to establish a proton relationship, or verify.</li>
-<li>Users should also exchange a preferred name, pronouns, and avatar for convenience through this channel.</li>
-</ul>
-</li>
-<li>Personal Introduction - “Blair introduced me to Charlie”
-<ul>
-<li>If Alex has a proton relationship with Blair and Charlie, Alex can introduce them by sharing public keys and addresses with each of them. Blair and Charlie cannot rule out the possibility that they are talking to an alias for Alex, or that Alex has interposed themselves in the conversation by substituting their own key - unless they independently verify their newly introduced keys.</li>
-<li>Multiple personal introductions can resolve the trust issue - “Blair and Dani both vouch for Charlie’s cryptographic identity”. The mechanism for vouching is detailed in <a href="/posts/3.3-Groups">Groups and Introductions</a></li>
-</ul>
-</li>
-<li>External Attestation “Twitter says these are the keys for @user on Twitter”
-<ul>
-<li>A service can publish a directory of keys (and pre-keys), within a contextual namespace it controls
-<ul>
-<li>These services exist today for end to end messaging platforms - they publish keys for a phone number N in Signal,  and similarly for N in WhatsApp, N in iMessage, etc.</li>
-<li>An email address can convey some context. If a user registers their academic email address (<a href="mailto:Alex@example.edu">Alex@example.edu</a>) with iMessage, you get a contextual cryptographic identity - <a href="http://Example.edu">Example.edu</a> attests to the association of Alex with this email address (notionally, with the institution), and Apple attests to the binding of some cryptographic keys to the email address.</li>
-</ul>
-</li>
-<li>ACME could cut out the intermediary and directly<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> publish keys for an employee or student.
-<ul>
-<li>Similarly, a social service could publish keys for its users - e.g. users on Twitter</li>
-</ul>
-</li>
-<li>The service could make this directory public, or establish some access control, so we shouldn't presume that external attestations are all publicly reachable.</li>
-</ul>
-</li>
-</ul>
-<p>In practice, identities will roll over time, with cryptographic attestations linking them, so an example identity might be:</p>
-<ul>
-<li>Alex exchanged IPK’s in person with Blair in 2015
--These IPK’s rolled over time, forming a continuous chain of trust, until</li>
-<li>Blair recovered from a backup in 2016 (to keys <a href="/posts/5.1-Backup">pre-attested</a> by Blair before they lost their phone)</li>
-<li>Blair started to link their IPK’s to the identity Blair on Twitter in 2017.</li>
-<li>In 2018 Blair removed the claim that this key is linked to Twitter
-<ul>
-<li>(e.g. they deleted their account)</li>
-</ul>
-</li>
-<li>Alex verified keys with Blair in 2019</li>
-</ul>
-<p>Alex can delete any of this metadata but also loses a stored record of why they trust this identity.</p>
-<hr class="footnotes-sep">
-<section class="footnotes">
-<ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p>In practice, with few exceptions, they will engage the services of a vendor to do so - just as they do with academic email and the contextual identity it confers. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
-</li>
-</ol>
-</section>
+      <p>Edited Nov 14 2022:</p>
+<p>Replaced by the <a href="/docs/architecture-overview.html">Architecture &amp; Protocol Model</a> section of the protocol documentation.</p>
 
       <hr>
       <ul><li>Next: <a href="/posts/3.2-Conversations/">3.2. Conversations</a></li><li>Previous: <a href="/posts/3-Relationships/">3. Relationships</a></li>
@@ -101,17 +50,17 @@
       <ul reversed class="postlist"}">
 
   <li class="postlist-item">
+    <a href="/posts/reorg/" class="postlist-link">Reorganization</a>
+    
+  </li>
+
+  <li class="postlist-item">
     <a href="/posts/7-Related-Work/" class="postlist-link">7. Related Work</a>
     
   </li>
 
   <li class="postlist-item">
     <a href="/posts/6.3-Sending-Service/" class="postlist-link">6.3. Sending Service</a>
-    
-  </li>
-
-  <li class="postlist-item">
-    <a href="/posts/6.2-Receiving-Service/" class="postlist-link">6.2. Receiving Service</a>
     
   </li>
 

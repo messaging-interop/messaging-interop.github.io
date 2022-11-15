@@ -20,6 +20,7 @@
         <li class="nav-item"><a href="/">Home</a></li>
         <li class="nav-item"><a href="/posts/">Archive</a></li>
         <li class="nav-item"><a href="/about/">About Me</a></li>
+        <li class="nav-item"><a href="/docs">Documentation</a></li>
       </ul>
     </header>
 
@@ -31,98 +32,8 @@
 
       <h1>3. Relationships</h1>
 
-      <p>As hinted at, we make relationships the fundamental unit. I don’t have one identity, I have contextual identities defined by my role in a relationship.</p>
-<p>A <strong>relationship</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span></span> between Alex and Blair is a pair of data structures <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">P_a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">P_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, stored by Alex and Blair respectively, that represent each end (role) of the relationship, and contain the data needed to communicate with the other party. Let’s call <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">P_a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">P_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> <strong>Protons</strong>, to reflect the intuition that they are entangled (through message exchange) and reflect shared state.</p>
-<p><em>Protons are a conceptual extension of an idea from Double Ratchet’s ratchet keys, that people exchange and automatically update complementary cryptographic state to encrypt and authenticate asynchronous messages. In addition to cryptographic state, Protons also update their delivery addresses and other identity metadata through message exchange.</em></p>
-<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">P_a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> consists of:</p>
-<ul>
-<li>A human-readable identity for <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">P_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>:
-<ul>
-<li>A string representing a preferred name</li>
-<li>Optionally, pronouns</li>
-<li>Optionally, a profile picture</li>
-</ul>
-</li>
-<li>An Identity Public Key (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mi>P</mi><msub><mi>K</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">IPK_B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>) for <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">P_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>
-<ul>
-<li>Optionally, an external resource that attests to a binding between <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mi>P</mi><msub><mi>K</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">IPK_B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and some external identity (e.g. a scoped username - @B on Twitter)</li>
-</ul>
-</li>
-<li>An Identity private key for Pa corresponding to the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mi>P</mi><msub><mi>K</mi><mi>A</mi></msub></mrow><annotation encoding="application/x-tex">IPK_A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> held by <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">P_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
-<li>Message security state variables
-<ul>
-<li>This would be Double Ratchet chain keys for 1:1 conversations and MLS for group conversations</li>
-</ul>
-</li>
-<li>A list of transport mechanisms (minimum 2), that each contains
-<ul>
-<li>A URL representing the service identity and a means to obtain the service's configuration:
-<ul>
-<li>E.g. <a href="http://example.com/.well-known/Proton.json">example.com/.well-known/Proton.json</a>
-(analogous to an MX record)</li>
-</ul>
-</li>
-<li>A long-term delivery address for <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">P_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> (this facilitates recovery)
-<ul>
-<li>With a guaranteed valid until date</li>
-</ul>
-</li>
-<li>An ephemeral delivery address for <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">P_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>
-<ul>
-<li>With a (closer) guaranteed valid until date</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>A set of associations with other related protons (relationships)defined by cryptographic attestation - see <a href="/posts/3.1-Identity">Identity</a>.</li>
-</ul>
-<h2 id="architecture" tabindex="-1">Architecture <a class="direct-link" href="#architecture" aria-hidden="true">#</a></h2>
-<p>For Alex and Blair to exchange messages through <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span></span>, the key functions required are:</p>
-<ul>
-<li>A relationship manager client running on the user’s device(s) that:
-<ul>
-<li>Exposes user interfaces to manage relationships through their lifetime (create, update, introduce, merge, end)</li>
-<li>Decrypts incoming messages, and encrypts outgoing messages for relationships it manages</li>
-<li>Stores a user’s message history</li>
-<li>Optionally,
-<ul>
-<li>Synchronizes these relationships across multiple devices</li>
-<li>Provides backup and recovery of a user’s relationships</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>A message receiving service that accepts services on behalf of a user and routs them to the user's devices.</li>
-<li>A message sending service that serves as an agent for outgoing messages from devices running a relationship manager.</li>
-</ul>
-<p>Alex and Blair do not have to agree on relationship managers, or message sending and receiving services. Different users's software and services must only <a href="/posts/4.1-Interoperability">interoperate</a> in these ways:</p>
-<ul>
-<li>Message receiving services must accept arbitrary messages from message sending services and deliver them to the addressee</li>
-<li>Relationship managers must be able to encrypt and decrypt messages with other relationship managers and process header information intended for the relationship manager.</li>
-</ul>
-<h3 id="optional-components" tabindex="-1">Optional Components <a class="direct-link" href="#optional-components" aria-hidden="true">#</a></h3>
-<p>These are not required, but extend the functionality of the system to match how people commonly exchange messages:</p>
-<ul>
-<li>Attestation Service
-<ul>
-<li>This asserts authority over identities within a namespace (E.g. users on Twitter, or members of a school), and attests to bindings between those namespace identities, and a cryptographic identity ( an Identity Public Key)
-<ul>
-<li>E.g.: (&quot;This is the IPK for @example on Twitter&quot;)</li>
-</ul>
-</li>
-<li>This should also provide addresses and pre-key bundles to facilitate asynchronously starting conversations with these users.</li>
-<li>The service may use Key Transparency to prove its honest issuance of a consistent key directory.</li>
-</ul>
-</li>
-<li>Client Application
-<ul>
-<li>People may use the relationship architecture to exchange messages of a particular application type. For example - payments, or invitations to a real-time end to end encrypted video call. The Relationship Manager does not need to itself implement the rich functionality such applications provide, but it can provide a secure, authenticated mechanism to exchange those payloads across existing relationships.</li>
-<li>In a commercial relationship, where the remote party has an application of their own, the user can choose to route payloads in that relationship to the corresponding app on their device. E.g. a push notification for a bank that is delivered to my banking app so that I can permit or deny a transaction.</li>
-<li>People may also wish to use a different client application to read and write messages. Operating systems should help protect users from message exfiltration by malicious or compromised client apps.</li>
-</ul>
-</li>
-</ul>
-<p>A relationship manager may have default sending and receiving services, but standardized interfaces would allow users to configure a receiving and sending service of their choice.</p>
+      <p>Edited Nov 14 2022:</p>
+<p>Replaced by the <a href="/docs/introductions.html">Relationships</a> section of the protocol documentation.</p>
 
       <hr>
       <ul><li>Next: <a href="/posts/3.1-Identity/">3.1. Identity</a></li><li>Previous: <a href="/posts/2-Vision/">2. A Vision for Modern Interoperable Messaging</a></li>
@@ -139,17 +50,17 @@
       <ul reversed class="postlist"}">
 
   <li class="postlist-item">
+    <a href="/posts/reorg/" class="postlist-link">Reorganization</a>
+    
+  </li>
+
+  <li class="postlist-item">
     <a href="/posts/7-Related-Work/" class="postlist-link">7. Related Work</a>
     
   </li>
 
   <li class="postlist-item">
     <a href="/posts/6.3-Sending-Service/" class="postlist-link">6.3. Sending Service</a>
-    
-  </li>
-
-  <li class="postlist-item">
-    <a href="/posts/6.2-Receiving-Service/" class="postlist-link">6.2. Receiving Service</a>
     
   </li>
 
